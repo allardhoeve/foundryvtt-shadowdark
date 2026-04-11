@@ -436,6 +436,13 @@ SHADOWDARK.item.effect.lightSource.lightSuppression: Light Suppression
 SHADOWDARK.item.effect.lightSource.purpleGlow: Purple Glow
 SHADOWDARK.item.effect.lightSource.torch: Torch
 SHADOWDARK.item.effect.pre-defined.title: Pre-defined Effects
+SHADOWDARK.item.effect.predefined_effect.abilityCheckBonus: Ability Check Bonus (All)
+SHADOWDARK.item.effect.predefined_effect.abilityCheckBonusCha: Ability Check Bonus (Cha)
+SHADOWDARK.item.effect.predefined_effect.abilityCheckBonusCon: Ability Check Bonus (Con)
+SHADOWDARK.item.effect.predefined_effect.abilityCheckBonusDex: Ability Check Bonus (Dex)
+SHADOWDARK.item.effect.predefined_effect.abilityCheckBonusInt: Ability Check Bonus (Int)
+SHADOWDARK.item.effect.predefined_effect.abilityCheckBonusStr: Ability Check Bonus (Str)
+SHADOWDARK.item.effect.predefined_effect.abilityCheckBonusWis: Ability Check Bonus (Wis)
 SHADOWDARK.item.effect.predefined_effect.abilityImprovement: Ability Score Improvement
 SHADOWDARK.item.effect.predefined_effect.abilityImprovementCha: Ability Score Improvement (Cha)
 SHADOWDARK.item.effect.predefined_effect.abilityImprovementCon: Ability Score Improvement (Con)
