@@ -57,6 +57,7 @@ SHADOWDARK.DEFAULTS = {
 	ACTOR_IMAGES: {
 		Light: "icons/sundries/lights/torch-purple.webp",
 		NPC: "systems/shadowdark/assets/tokens/cowled_token_red.webp",
+		Party: "systems/shadowdark/assets/tokens/cowled_token.webp",
 		Player: "systems/shadowdark/assets/tokens/cowled_token_green.webp",
 	},
 	BASE_ARMOR_CLASS: 10,

@@ -1,0 +1,78 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+	{{> "actors/_partials/header"}}
+
+	<section class="SD-content-body flex1">
+
+		{{!-- Members --}}
+		<div class="SD-banner">{{localize "SHADOWDARK.sheet.party.members.label"}}</div>
+		{{#if isEmpty}}
+			<p class="sd-party-empty">
+				{{localize "SHADOWDARK.sheet.party.members.empty"}}
+			</p>
+		{{else}}
+			<ul class="sd-party-members">
+				{{#each members}}
+					<li class="sd-party-member" data-uuid="{{uuid}}">
+						<img
+							class="sd-party-member-portrait"
+							src="{{img}}"
+							alt="{{name}}"
+						/>
+						<a
+							class="sd-party-member-name"
+							data-action="open-member"
+							data-uuid="{{uuid}}"
+						>{{name}}</a>
+						<div class="sd-party-stats">
+							<span class="sd-party-stat sd-party-hp {{hpClass}}">
+								{{hp}}/{{hpMax}}
+							</span>
+							<span class="sd-party-stat" data-tooltip="{{localize 'SHADOWDARK.sheet.party.members.rations'}}">
+								<i class="fa-solid fa-drumstick-bite"></i> {{rations}}
+							</span>
+							<span class="sd-party-stat {{#if hasLight}}sd-party-light--active{{/if}}" data-tooltip="{{localize 'SHADOWDARK.sheet.party.members.light'}}">
+								<i class="fa-solid fa-fire"></i> {{lightSources}}
+							</span>
+							{{#if hasSlots}}
+								<span class="sd-party-stat {{#if over}}sd-party-slots--over{{/if}}" data-tooltip="{{localize 'SHADOWDARK.sheet.party.members.slots'}}">
+									<i class="fa-solid fa-weight-hanging"></i> {{used}}/{{max}}
+								</span>
+							{{/if}}
+						</div>
+					</li>
+				{{/each}}
+			</ul>
+			<p class="sd-party-drop-hint">
+				{{localize "SHADOWDARK.sheet.party.members.drop_hint"}}
+			</p>
+		{{/if}}
+
+		{{!-- Token actions: GM only --}}
+		{{#if isGM}}
+			<div class="SD-banner">{{localize "SHADOWDARK.sheet.party.token_actions.label"}}</div>
+			<div class="sd-party-token-actions">
+				{{#if merged}}
+					<button type="button" data-action="explode-tokens">
+						{{localize "SHADOWDARK.sheet.party.explode"}}
+					</button>
+				{{else}}
+					<button type="button" data-action="merge-tokens" {{#if isEmpty}}disabled{{/if}}>
+						{{localize "SHADOWDARK.sheet.party.merge"}}
+					</button>
+				{{/if}}
+			</div>
+		{{/if}}
+
+		{{!-- GM Notes: GM only --}}
+		{{#if isGM}}
+			<div class="SD-banner">{{localize "SHADOWDARK.sheet.party.notes.label"}}</div>
+			<div class="sd-party-notes">
+				<textarea
+					name="system.notes"
+					placeholder="{{localize 'SHADOWDARK.sheet.party.notes.placeholder'}}"
+				>{{system.notes}}</textarea>
+			</div>
+		{{/if}}
+
+	</section>
+</form>

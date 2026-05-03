@@ -362,7 +362,7 @@ export default class LightSourceTrackerSD extends foundry.appv1.api.Application 
 	async _deleteActorHook(actor, options, userId) {
 		if (!(this._isEnabled() && game.user.isGM)) return;
 
-		if (actor.hasActiveLightSources()) this.dirty = true;
+		if (await actor.hasActiveLightSources()) this.dirty = true;
 	}
 
 	async _deleteItemHook(item, options, userId) {

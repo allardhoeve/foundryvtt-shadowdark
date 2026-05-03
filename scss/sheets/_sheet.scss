@@ -19,6 +19,22 @@
 		color:white;
 	}
 
+	.portrait {
+		grid-row: span 2;
+	}
+
+	.shadowdark-logo {
+		font-family: "JSL Blackletter";
+		font-size: 1.75rem;
+		color: white;
+		text-align: center;
+
+		span {
+			border-bottom: solid 1px white;
+			padding: 0px 10px;
+		}
+	}
+
 	.SD-title {
 		font-family: "Old Newspaper Font";
 		font-size: 40px;

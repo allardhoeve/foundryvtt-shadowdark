@@ -1,39 +1,37 @@
 import * as select from "../apps/CompendiumItemSelectors/_module.mjs";
+import ActorSheetBaseSD from "./ActorSheetBaseSD.mjs";
 
-export default class ActorSheetSD extends foundry.applications.api.HandlebarsApplicationMixin(
-	foundry.applications.sheets.ActorSheetV2
-) {
+export default class ActorSheetSD extends ActorSheetBaseSD {
 
 	_hiddenSectionsLut = {
 		activeEffects: true,
 	};
 
-	static DEFAULT_OPTIONS = {
-		classes: ["shadowdark-app"],
-		window: {
-			resizable: true,
-			contentClasses: ["shadowdark", "sheet"],
+	static DEFAULT_OPTIONS = foundry.utils.mergeObject(
+		ActorSheetBaseSD.DEFAULT_OPTIONS,
+		{
+			classes: ["shadowdark-app"],
+			window: {
+				contentClasses: ["shadowdark", "sheet"],
+			},
+			actions: {
+				"hide-section": ActorSheetSD.prototype._onHideSection,
+				"roll-ability-check": ActorSheetSD.prototype._onRollAbilityCheck,
+				"roll-hp": ActorSheetSD.prototype._onRollHP,
+				"item-selector": ActorSheetSD.prototype._onItemSelection,
+				"show-details": ActorSheetSD.prototype._onShowDetails,
+				"item-attack": ActorSheetSD.prototype._onRollAttack,
+				"toggle-lost": ActorSheetSD.prototype._onToggleLost,
+				"item-create": ActorSheetSD.prototype._onItemCreate,
+				"effect-create": ActorSheetSD.prototype._onEffectControl,
+				"effect-edit": ActorSheetSD.prototype._onEffectControl,
+				"effect-delete": ActorSheetSD.prototype._onEffectControl,
+				"effect-toggle": ActorSheetSD.prototype._onEffectControl,
+				"effect-toggle-situational": ActorSheetSD.prototype._onEffectControl,
+			},
 		},
-		form: {
-			submitOnChange: true,
-			closeOnSubmit: false,
-		},
-		actions: {
-			"hide-section": ActorSheetSD.prototype._onHideSection,
-			"roll-ability-check": ActorSheetSD.prototype._onRollAbilityCheck,
-			"roll-hp": ActorSheetSD.prototype._onRollHP,
-			"item-selector": ActorSheetSD.prototype._onItemSelection,
-			"show-details": ActorSheetSD.prototype._onShowDetails,
-			"item-attack": ActorSheetSD.prototype._onRollAttack,
-			"toggle-lost": ActorSheetSD.prototype._onToggleLost,
-			"item-create": ActorSheetSD.prototype._onItemCreate,
-			"effect-create": ActorSheetSD.prototype._onEffectControl,
-			"effect-edit": ActorSheetSD.prototype._onEffectControl,
-			"effect-delete": ActorSheetSD.prototype._onEffectControl,
-			"effect-toggle": ActorSheetSD.prototype._onEffectControl,
-			"effect-toggle-situational": ActorSheetSD.prototype._onEffectControl,
-		},
-	};
+		{ inplace: false }
+	);
 
 	async emulateItemDrop(data) {
 		const item = await fromUuid(data.uuid);
@@ -44,15 +42,10 @@ export default class ActorSheetSD extends foundry.applications.api.HandlebarsApp
 	async _prepareContext(options) {
 		const context = await super._prepareContext(options);
 
-		context.actor = this.actor;
 		context.config = CONFIG.SHADOWDARK;
-		context.cssClass = this.actor.isOwner ? "editable" : "locked";
-		context.editable = this.isEditable;
 		context.hiddenSections = this._hiddenSectionsLut;
 		context.items = this.actor.items;
-		context.owner = this.actor.isOwner;
 		context.predefinedEffects = await shadowdark.effects.getPredefinedEffectsList();
-		context.system = this.actor.system;
 
 		context.activeEffects = this.actor.allApplicableEffects().filter(e => !e.isSuppressed);
 
@@ -93,20 +86,6 @@ export default class ActorSheetSD extends foundry.applications.api.HandlebarsApp
 			return;
 		}
 		super._onChangeForm(formConfig, event);
-	}
-
-	/** @override */
-	_processFormData(event, form, formData) {
-		// Mirror v1 ActorSheet._getSubmitData: strip fields whose paths are
-		// currently overridden by an active effect, so the post-override
-		// displayed value isn't persisted as new base data.
-		const overrides = foundry.utils.flattenObject(this.actor.overrides ?? {});
-		for (const key of Object.keys(overrides)) {
-			delete formData.object[key];
-		}
-		// Defensive: predefinedEffects is unbound; never let it reach actor.update.
-		delete formData.object.predefinedEffects;
-		return super._processFormData(event, form, formData);
 	}
 
 	_getItemContextOptions() {

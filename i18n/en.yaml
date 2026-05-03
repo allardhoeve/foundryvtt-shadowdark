@@ -772,7 +772,25 @@ SHADOWDARK.sheet.actor.level: Level
 SHADOWDARK.sheet.actor.placeholder.name: New Actor Name
 SHADOWDARK.sheet.class.item: Shadowdark Item Sheet
 SHADOWDARK.sheet.class.npc: Shadowdark NPC Sheet
+SHADOWDARK.sheet.class.party: Shadowdark Party Sheet
 SHADOWDARK.sheet.class.player: Shadowdark Player Sheet
+SHADOWDARK.sheet.party.explode: Explode
+SHADOWDARK.sheet.party.members.drop_hint: Drop characters here to add
+SHADOWDARK.sheet.party.members.empty: Drag Player or NPC characters here to add them to the party
+SHADOWDARK.sheet.party.members.label: Members
+SHADOWDARK.sheet.party.members.light: Light sources
+SHADOWDARK.sheet.party.members.open_tooltip: Open sheet
+SHADOWDARK.sheet.party.members.rations: Rations
+SHADOWDARK.sheet.party.members.remove_tooltip: Remove from party
+SHADOWDARK.sheet.party.members.slots: Gear slots
+SHADOWDARK.sheet.party.merge: Merge
+SHADOWDARK.sheet.party.notes.label: GM Notes
+SHADOWDARK.sheet.party.notes.placeholder: Notes…
+SHADOWDARK.sheet.party.token_actions.label: Party Token
+SHADOWDARK.sheet.party.warn.character_only: Only Player and NPC actors can be added to the party.
+SHADOWDARK.sheet.party.warn.no_member_tokens: No member tokens found on this scene.
+SHADOWDARK.sheet.party.warn.no_party_token: No party token found on this scene.
+SHADOWDARK.sheet.party.warn.no_scene: No active scene.
 SHADOWDARK.sheet.general.active_effects.create_effect.title: Create Effect
 SHADOWDARK.sheet.general.active_effects.delete_effect.tooltip: Delete Effect
 SHADOWDARK.sheet.general.active_effects.duration.title: Duration
@@ -928,6 +946,7 @@ SHADOWDARK.weapon.type.melee: Melee
 SHADOWDARK.weapon.type.ranged: Ranged
 TYPES.Actor.Light: Light
 TYPES.Actor.NPC: NPC
+TYPES.Actor.Party: Party
 TYPES.Actor.Player: Player
 TYPES.Item.Ancestry: Ancestry
 TYPES.Item.Armor: Armor

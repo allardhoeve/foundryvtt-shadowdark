@@ -86,6 +86,7 @@ Hooks.once("init", () => {
 
 	// Register Data Models
 	Object.assign(CONFIG.Actor.dataModels, {
+		Party: models.PartySD,
 		Player: models.PlayerSD,
 		NPC: models.NpcSD,
 	});
@@ -117,6 +118,12 @@ Hooks.once("init", () => {
 
 	// Register sheet application classes
 	foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+	foundry.documents.collections.Actors.registerSheet("shadowdark", sheets.PartySheetSD, {
+		types: ["Party"],
+		makeDefault: true,
+		label: "SHADOWDARK.sheet.class.party",
+	});
+
 	foundry.documents.collections.Actors.registerSheet("shadowdark", sheets.PlayerSheetSD, {
 		types: ["Player"],
 		makeDefault: true,

@@ -61,10 +61,6 @@
 		}
 	}
 
-	.portrait {
-		grid-row: span 2;
-	}
-
 	.rollable {
 		i {
 			font-size: 14px;
@@ -75,18 +71,6 @@
 			i {
 				visibility: visible;
 			}
-		}
-	}
-
-	.shadowdark-logo {
-		font-family: "JSL Blackletter";
-		font-size: 1.75rem;
-		color: white;
-		text-align: center;
-
-		span {
-			border-bottom: solid 1px white;
-			padding: 0px 10px 0px 10px;
 		}
 	}
 

@@ -35,6 +35,7 @@
 	"esmodules": ["shadowdark-compiled.mjs"],
 	"documentTypes": {
         "Actor": {
+            "Party": {},
             "Player": {},
             "NPC": {},
 			"Light": {}

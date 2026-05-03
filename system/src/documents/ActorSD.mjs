@@ -122,6 +122,7 @@ export default class ActorSD extends foundry.documents.Actor {
 	 * @param {number} multiplier
 	 */
 	async applyDamage(damageAmount, multiplier=1) {
+		if (!this.system.attributes?.hp) return;
 		const maxHpValue = this.system.attributes.hp.max;
 		const currentHpValue = this.system.attributes.hp.value;
 		const amountToApply = Math.floor(parseInt(damageAmount) * multiplier);
@@ -191,11 +192,11 @@ export default class ActorSD extends foundry.documents.Actor {
 	}
 
 	async hasActiveLightSources() {
-		return this.getActiveLightSources.length > 0;
+		return (await this.getActiveLightSources()).length > 0;
 	}
 
 	async hasNoActiveLightSources() {
-		return this.getActiveLightSources.length <= 0;
+		return (await this.getActiveLightSources()).length <= 0;
 	}
 
 	/**

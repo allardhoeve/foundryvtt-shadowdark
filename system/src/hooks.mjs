@@ -8,6 +8,7 @@ import { NPCHooks } from "./hooks/npc.mjs";
 import { TargetingHooks } from "./hooks/targeting.mjs";
 import { SDAppsButtons } from "./hooks/sd-apps-buttons.mjs";
 import { hotbarHooks } from "./hooks/hotbar.mjs";
+import { PartyHooks } from "./hooks/party.mjs";
 
 export const HooksSD = {
 	attach: () => {
@@ -18,6 +19,7 @@ export const HooksSD = {
 			EffectHooks,
 			LightSourceTrackerHooks,
 			NPCHooks,
+			PartyHooks,
 			TargetingHooks,
 			hotbarHooks,
 		];
