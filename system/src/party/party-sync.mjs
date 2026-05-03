@@ -1,13 +1,7 @@
 import { computePartyOwnership } from "./party-ownership.mjs";
 import { isMemberOf } from "./party-members.mjs";
 
-const NO_LIGHT = {
-	bright: 0, dim: 0, angle: 360, alpha: 0.5,
-	animation: { speed: 0, intensity: 0, type: null },
-	color: null, coloration: 1, luminosity: 0.5,
-	attenuation: 0.5, contrast: 0, saturation: 0, shadows: 0,
-	darkness: { min: 0, max: 1 },
-};
+const NO_LIGHT = { bright: 0, dim: 0 };
 
 let _lightMappings = null;
 

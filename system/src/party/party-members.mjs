@@ -34,16 +34,15 @@ export function computeSlotStatus(system) {
 }
 
 /**
- * Collect non-suppressed active effects that carry at least one status.
+ * Collect Effect-type items that have tokenIcon.show enabled.
  * @param {ActorSD} actor
- * @returns {{ statuses: Set<string>, effects: Array<{name: string, icon: string}> }}
+ * @returns {{ effects: Array<{name: string, icon: string}> }}
  */
 export function collectEffects(actor) {
-	const active = Array.from(actor.allApplicableEffects())
-		.filter(e => !e.isSuppressed && e.statuses.size > 0);
-	const statuses = new Set(active.flatMap(e => [...e.statuses]));
-	const effects = active.map(e => ({ name: e.name, icon: e.img ?? e.icon ?? "" }));
-	return { statuses, effects };
+	const effects = Array.from(actor.items)
+		.filter(i => i.type === "Effect" && i.system.tokenIcon?.show)
+		.map(i => ({ name: i.name, icon: i.img }));
+	return { effects };
 }
 
 /**
@@ -60,11 +59,10 @@ export function isMemberOf(memberUuids, actorId) {
  * Compute the CSS modifier class for a member's HP display.
  * @param {number} hp
  * @param {number} hpMax
- * @param {Set<string>} statuses
  * @returns {string}
  */
-export function computeHpClass(hp, hpMax, statuses) {
-	if (statuses.has("dead")) return "sd-party-hp--dead";
+export function computeHpClass(hp, hpMax) {
+	if (hp <= 0) return "sd-party-hp--dead";
 	const fraction = hpMax > 0 ? hp / hpMax : 0;
 	if (fraction < 0.5) return "sd-party-hp--damaged";
 	return "";

@@ -147,8 +147,8 @@ export default class PartySheetSD extends ActorSheetBaseSD {
 
 			const hp = actor.system.attributes.hp.value;
 			const hpMax = actor.system.attributes.hp.max;
-			const { statuses, effects } = collectEffects(actor);
-			const hpClass = computeHpClass(hp, hpMax, statuses);
+			const { effects } = collectEffects(actor);
+			const hpClass = computeHpClass(hp, hpMax);
 			const rations = countRations(actor.items);
 			const lightSources = countLightSources(actor.items);
 			const hasLight = (await actor.getActiveLightSources()).length > 0;

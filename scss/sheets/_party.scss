@@ -97,6 +97,18 @@
 		i { color: #922; }
 	}
 
+	.sd-party-effect-icon {
+		width: 16px;
+		height: 16px;
+		border-radius: 2px;
+		flex-shrink: 0;
+		margin-left: 2px;
+	}
+
+	.sd-party-stat + .sd-party-effect-icon {
+		margin-left: 10px;
+	}
+
 	.sd-party-token-actions {
 		padding: 4px;
 
