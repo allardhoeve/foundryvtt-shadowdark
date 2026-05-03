@@ -120,10 +120,12 @@ export async function explodePartyTokens(partyActor) {
 	);
 	const nextPosition = makePositionAllocator(partyToken.x, partyToken.y, gridSize, occupied);
 	const tokensToCreate = [];
+	let memberCount = 0;
 
 	for (const uuid of partyActor.system.members) {
 		const actor = await fromUuid(uuid);
 		if (!actor) continue;
+		memberCount++;
 
 		const tokenData = actor.prototypeToken.toObject();
 		tokenData.actorId = actor._id;
@@ -142,6 +144,13 @@ export async function explodePartyTokens(partyActor) {
 	if (tokensToCreate.length === 0) {
 		ui.notifications.warn(game.i18n.localize("SHADOWDARK.sheet.party.warn.no_member_tokens"));
 		return;
+	}
+
+	if (tokensToCreate.length < memberCount) {
+		ui.notifications.warn(game.i18n.format(
+			"SHADOWDARK.sheet.party.warn.not_enough_room",
+			{ placed: tokensToCreate.length, total: memberCount }
+		));
 	}
 
 	await scene.createEmbeddedDocuments("Token", tokensToCreate);

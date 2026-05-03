@@ -791,6 +791,7 @@ SHADOWDARK.sheet.party.warn.character_only: Only Player and NPC actors can be ad
 SHADOWDARK.sheet.party.warn.no_member_tokens: No member tokens found on this scene.
 SHADOWDARK.sheet.party.warn.no_party_token: No party token found on this scene.
 SHADOWDARK.sheet.party.warn.no_scene: No active scene.
+SHADOWDARK.sheet.party.warn.not_enough_room: Not enough room to place all party members. {placed} of {total} tokens placed.
 SHADOWDARK.sheet.general.active_effects.create_effect.title: Create Effect
 SHADOWDARK.sheet.general.active_effects.delete_effect.tooltip: Delete Effect
 SHADOWDARK.sheet.general.active_effects.duration.title: Duration
