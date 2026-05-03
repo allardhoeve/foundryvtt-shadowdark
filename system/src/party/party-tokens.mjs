@@ -82,6 +82,23 @@ export async function mergePartyTokens(partyActor) {
 	await partyActor.update({ "system.merged": true });
 }
 
+function makePositionAllocator(originX, originY, gridSize, initialClaimed = new Set()) {
+	const claimed = new Set(initialClaimed);
+	let index = 0;
+	return function nextPosition(tokenW, tokenH) {
+		while (index < SPIRAL_OFFSETS.length) {
+			const offset = SPIRAL_OFFSETS[index++];
+			const pos = findSafePosition(originX, originY, offset, gridSize, tokenW, tokenH);
+			const key = `${pos.x},${pos.y}`;
+			if (!claimed.has(key)) {
+				claimed.add(key);
+				return pos;
+			}
+		}
+		return null;
+	};
+}
+
 export async function explodePartyTokens(partyActor) {
 	const scene = canvas.scene;
 	if (!scene) {
@@ -95,12 +112,14 @@ export async function explodePartyTokens(partyActor) {
 		return;
 	}
 
-	const originX = partyToken.x;
-	const originY = partyToken.y;
 	const gridSize = canvas.grid.size;
+	const occupied = new Set(
+		scene.tokens
+			.filter(t => t._id !== partyToken._id)
+			.map(t => `${t.x},${t.y}`)
+	);
+	const nextPosition = makePositionAllocator(partyToken.x, partyToken.y, gridSize, occupied);
 	const tokensToCreate = [];
-	const claimedPositions = new Set();
-	let spiralIndex = 0;
 
 	for (const uuid of partyActor.system.members) {
 		const actor = await fromUuid(uuid);
@@ -112,22 +131,7 @@ export async function explodePartyTokens(partyActor) {
 
 		const tokenW = (tokenData.width ?? 1) * gridSize;
 		const tokenH = (tokenData.height ?? 1) * gridSize;
-
-		// Find the next spiral position not already claimed by another member.
-		// If findSafePosition falls back to a claimed position (wall blocked), try
-		// the next offset until an unclaimed position is found.
-		let pos = null;
-		while (spiralIndex < SPIRAL_OFFSETS.length) {
-			const offset = SPIRAL_OFFSETS[spiralIndex++];
-			const candidate = findSafePosition(originX, originY, offset, gridSize, tokenW, tokenH);
-			const key = `${candidate.x},${candidate.y}`;
-			if (!claimedPositions.has(key)) {
-				pos = candidate;
-				claimedPositions.add(key);
-				break;
-			}
-		}
-
+		const pos = nextPosition(tokenW, tokenH);
 		if (!pos) break;
 
 		tokenData.x = pos.x;
