@@ -38,6 +38,9 @@
 									<i class="fa-solid fa-weight-hanging"></i> {{used}}/{{max}}
 								</span>
 							{{/if}}
+							{{#each effects}}
+								<img class="sd-party-effect-icon" src="{{icon}}" alt="{{name}}" data-tooltip="{{name}}" />
+							{{/each}}
 						</div>
 					</li>
 				{{/each}}
